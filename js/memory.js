@@ -76,6 +76,7 @@ function checkClickedCard(e) {
       checkWinState();
 
       $cards.removeClass("guess pick");
+      $pick.add($clicked).addClass("done");
     }
   }
 }

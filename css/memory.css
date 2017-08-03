@@ -51,6 +51,7 @@ body {
     text-align: center;
     position: relative;
     margin: 2vh 2vw;
+    transition: opacity 600ms 1000ms ease-in;
     -webkit-filter: drop-shadow(0px 5px 6px #010101);
             filter: drop-shadow(0px 5px 6px #010101); }
     #playfield .card .face, #playfield .card .back {
@@ -95,3 +96,5 @@ body {
       box-shadow: 0 0 30px blue;
       -webkit-transform: scale(1.1);
               transform: scale(1.1); }
+    #playfield .card.done {
+      opacity: 0; }
