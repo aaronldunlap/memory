@@ -9,6 +9,30 @@
 	],
 "creatorBuild": "25849",
 "files": {
+	"\/audio\/flip.wav": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/audio\/flip.wav",
+		"oF": 0
+		},
+	"\/audio\/shuffle.wav": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/audio\/shuffle.wav",
+		"oF": 0
+		},
+	"\/audio\/success.wav": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/audio\/success.wav",
+		"oF": 0
+		},
+	"\/audio\/win.wav": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/audio\/win.wav",
+		"oF": 0
+		},
 	"\/bower.json": {
 		"ft": 524288,
 		"oA": 1,

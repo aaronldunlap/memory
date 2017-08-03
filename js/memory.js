@@ -5,6 +5,22 @@ var matches = 0;
 var toWin = 12;
 var cheating = false; // For debug 
 
+// Sounds
+var sounds = {
+  success: 'audio/success.wav',
+  flip: 'audio/flip.wav',
+  shuffle: 'audio/shuffle.wav',
+  win: 'audio/win.wav'
+};
+// Add audio elements to body and save them for control
+_.each(sounds, (sound, i) => {
+  var $audioElem = $(`<audio src="${sound}"></audio>`);
+  $audioElem.insertAfter($field);
+  sounds[i] = $audioElem.get(0);
+})
+
+
+// Generate the structured data to populate the cards
 function buildCards() {
   var cards = [];
 
@@ -26,11 +42,41 @@ function buildCards() {
 // See if the user just won
 function checkWinState() {
   if (matches === toWin) {
-    alert("Congratulations!");
-    reset();
+    sounds.win.play();
+
+    var $cards = $field.children();
+
+    $cards.removeClass('shown done').addClass('hidden');
+
+
+    $field.addClass("win");
+
+    setTimeout(()=> $field.removeClass('win'), 2500);
+    setTimeout(() =>reset(), 4500);
   }
 }
 
+// Helper function to show a given card
+function showCard($card) {
+  $card.removeClass("hidden").addClass("shown");
+  sounds.flip.play();
+}
+
+// Helper function to hide a given card
+
+function hideCard($card) {
+  $field.addClass("paused");
+
+  // Let the player see the card for a few seconds before reverting
+  setTimeout(()=> {
+    $card.removeClass("shown guess pick").addClass("hidden");
+    $field.removeClass("paused");
+    sounds.flip.play();
+    updateHud("Pick another card");
+  }, 1100);
+}
+
+// Accept a click event and figure out what to do about it
 function checkClickedCard(e) {
   var $cards = $field.find(".card"),
       $pick = $cards.filter(".pick"),
@@ -42,11 +88,12 @@ function checkClickedCard(e) {
     return;
   }
   else if ($clicked.hasClass("shown")) {
-    return;
+    return; // Clicked a shown card
   }
   else if ($pick.length === 0) {
     // We're picking
-    $clicked.removeClass("hidden").addClass("shown pick");
+    showCard($clicked);
+    $clicked.addClass("pick");
     updateHud("Now find its match");
   } else {
     // We're guessing
@@ -54,24 +101,20 @@ function checkClickedCard(e) {
         guessedId = $clicked.data("id");
 
     // Show the clicked card
-    $clicked.removeClass("hidden").addClass("shown guess");
+    showCard($clicked);
+    $clicked.addClass("guess");
 
     // Was it a match?
     if (pickedId !== guessedId) {
       // Wrong guess
-      $field.addClass("paused");
       updateHud("Whoops!");
-
-      // Let the player see the card for a few seconds before reverting
-      setTimeout(()=> {
-        $clicked.add($pick).removeClass("shown guess pick").addClass("hidden");
-        $field.removeClass("paused");
-        updateHud("Pick another card");
-      }, 1100);
+      hideCard($clicked);
+      hideCard($pick);
 
     } else {
       // Match!
       matches++;
+      setTimeout(()=> sounds.success.play(), 400);
       updateHud("Nice job! Pick another card");
       checkWinState();
 
@@ -94,6 +137,7 @@ function placeCards(cards) {
     $field.append($cardDom);
 
   });
+  sounds.shuffle.play();
 }
 // Helper to let you cruise through the play
 window.cheat = function() {
@@ -106,7 +150,7 @@ window.cheat = function() {
 function reset() {
   matches = 0;
   let cards = buildCards();
-  $field.empty();
+  $field.empty().removeClass("paused win");;
   placeCards(cards);
   updateHud("Pick a card");
   

@@ -1,3 +1,5 @@
+$cards: 24;
+
 body {
   background: green;
   background: linear-gradient(rgba(41,154,11,1) 0%, rgba(41,154,11,1) 100%);
@@ -51,7 +53,7 @@ body {
     text-align: center;
     position: relative;
     margin: 2vh 2vw;
-    transition: opacity 600ms 1000ms ease-in;
+    transition: opacity 600ms 2s ease-in, transform 2000ms ease;;
     filter: drop-shadow(0px 5px 6px #010101);
     
 
@@ -114,7 +116,21 @@ body {
 
 
   }
-
-
-
+  &.win {
+    perspective: 0;
+    .card {
+      transition: transform 2000ms ease;
+      opacity: 1;
+      position: fixed;
+      top: 50vh;
+      left: auto;
+      right: auto;
+      transform-origin: bottom left;
+      @for $i from 0 to $cards {
+        &:nth-child(#{$i+1}) {
+          transform: translateY(-100%) rotate( $i * 15deg );
+        }
+      }
+    }
+  }
 }
