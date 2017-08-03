@@ -1,0 +1,115 @@
+body {
+  background: green;
+  background: linear-gradient(rgba(41,154,11,1) 0%, rgba(41,154,11,1) 100%);
+  font-family: sans-serif;
+}
+
+
+#hud {
+  $textColor: #dedede;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.6);
+  color: $textColor;
+  padding: 1vh 10vw;
+  z-index: 2;
+  border-radius: 0 0 10px 0;
+  
+  span {
+    border-left: 1px solid $textColor;
+    padding-left: 2vw;
+    margin-left: 2vw;
+  }
+  span:empty {
+    display: none;
+  }
+
+}
+
+#playfield {
+  box-sizing: border-box;
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+  perspective: 1200px;
+  padding-top: 3vh;
+
+  .card {
+    $basecolor: #eeeeee;
+    display: inline-block;
+    width: 12%;
+    height: 18vw;
+    text-align: center;
+    position: relative;
+    margin: 2vh 2vw;
+    filter: drop-shadow(0px 5px 6px #010101);
+    
+
+    .face, .back {
+      backface-visibility: hidden;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 700ms ease, box-shadow 300ms ease;
+      transform-origin: center center;
+      transform-style: preserve-3d;
+      border-radius: 1vw;
+    }
+    
+    .face {
+      border: 1px solid green;
+      font-style: normal;
+      font-size: 8vw;
+      padding-top: 33%;
+      background: $basecolor;
+    }
+    .back {
+      background: orange;
+      border: 1vw solid $basecolor;
+      background-origin: content-box;
+      padding: 20px;
+
+      // CSS pattern from http://lea.verou.me/css3patterns/#half-rombes
+      background: #36c;
+      background: 
+      linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
+      linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
+      linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+      linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+      #36c;
+      background-size: 15px 30px
+
+
+    }
+    &.hidden .face {
+      transform: rotateY(180deg) scale(1.5);
+    }
+
+    &.shown .face {
+      transform: rotateY(0deg) scale(1);
+    }
+    &.shown .back {
+      transform: rotateY(-180deg) scale(1.5);
+    }
+
+    &:hover.hidden .back {
+      box-shadow: 0 0 30px blue;
+      transform: scale(1.1);
+    }
+
+
+  }
+
+
+
+}
