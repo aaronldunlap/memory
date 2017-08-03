@@ -114,7 +114,7 @@ function checkClickedCard(e) {
     } else {
       // Match!
       matches++;
-      setTimeout(()=> sounds.success.play(), 400);
+      setTimeout(()=> sounds.success.play(), 700);
       updateHud("Nice job! Pick another card");
       checkWinState();
 
