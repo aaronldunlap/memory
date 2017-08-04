@@ -1,6 +1,6 @@
 var $field = $("#playfield");
 var $hud = $("#hud");
-var cardFaces = ["🍟", "😃", "😈", "🤠", "🤖", "👽", "😴", "🤔", "😡", "🤑", "😇", "💩"];
+var cardFaces = ["🍟", "😃", "😈", "🤠", "🤖", "👽", "😴", "🤔", "😡", "🤑", "😇", "💩", "🐼", "🐳", "🌎", "🌞", "🍔", "🍕", "🚀", "🎁", "💖", "💯", "😎", "👻", "💃", "🐕", "🌹"];
 var matches = 0;
 var toWin = 12;
 var cheating = false; // For debug 
@@ -14,8 +14,7 @@ var sounds = {
 };
 // Add audio elements to body and save them for control
 _.each(sounds, (sound, i) => {
-  var $audioElem = $(`<audio src="${sound}"></audio>`);
-  $audioElem.insertAfter($field);
+  var $audioElem = $(`<audio src="${sound}" preload="auto"></audio>`);
   sounds[i] = $audioElem.get(0);
 })
 
@@ -25,7 +24,8 @@ function buildCards() {
   var cards = [];
 
   // Build out the 12 unique cards
-  cardFaces.forEach((face, id)=> {
+  var selectedCards = _.sampleSize(cardFaces, toWin);
+  selectedCards.forEach((face, id)=> {
     cards.push({ face, id });
   });
 
@@ -34,7 +34,7 @@ function buildCards() {
 
   // Shuffle them
   if (!cheating) cards = _.shuffle(cards);
-  else cards = _.sortBy(cards, 'face');
+  else cards = _.sortBy(cards, 'id');
 
   return cards;
 }
@@ -42,6 +42,8 @@ function buildCards() {
 // See if the user just won
 function checkWinState() {
   if (matches === toWin) {
+    sounds.success.pause();
+    sounds.flip.pause();
     sounds.win.play();
 
     var $cards = $field.children();

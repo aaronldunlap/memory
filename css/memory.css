@@ -41,7 +41,8 @@ body {
           align-items: center;
   -webkit-perspective: 1200px;
           perspective: 1200px;
-  padding-top: 3vh; }
+  padding-top: 3vh;
+  margin: 0 4vh; }
   #playfield *, #playfield *:before, #playfield *:after {
     box-sizing: inherit; }
   #playfield .card {
@@ -57,6 +58,7 @@ body {
     -webkit-filter: drop-shadow(0px 5px 6px #010101);
             filter: drop-shadow(0px 5px 6px #010101); }
     #playfield .card .face, #playfield .card .back {
+      border: 1px solid green;
       -webkit-backface-visibility: hidden;
               backface-visibility: hidden;
       position: absolute;
@@ -72,7 +74,6 @@ body {
               transform-style: preserve-3d;
       border-radius: 1vw; }
     #playfield .card .face {
-      border: 1px solid green;
       font-style: normal;
       font-size: 8vw;
       padding-top: 33%;
@@ -92,8 +93,8 @@ body {
       -webkit-transform: rotateY(0deg) scale(1);
               transform: rotateY(0deg) scale(1); }
     #playfield .card.shown .back {
-      -webkit-transform: rotateY(-180deg) scale(1.5);
-              transform: rotateY(-180deg) scale(1.5); }
+      -webkit-transform: rotateY(180deg) scale(1.5);
+              transform: rotateY(180deg) scale(1.5); }
     #playfield .card:hover.hidden .back {
       box-shadow: 0 0 30px blue;
       -webkit-transform: scale(1.1);

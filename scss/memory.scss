@@ -44,6 +44,7 @@ body {
   align-items: center;
   perspective: 1200px;
   padding-top: 3vh;
+  margin: 0 4vh;
 
   .card {
     $basecolor: #eeeeee;
@@ -58,6 +59,7 @@ body {
     
 
     .face, .back {
+      border: 1px solid green; // Adds a nice contrast to bg
       backface-visibility: hidden;
       position: absolute;
       width: 100%;
@@ -70,7 +72,6 @@ body {
     }
     
     .face {
-      border: 1px solid green;
       font-style: normal;
       font-size: 8vw;
       padding-top: 33%;
@@ -102,7 +103,7 @@ body {
       transform: rotateY(0deg) scale(1);
     }
     &.shown .back {
-      transform: rotateY(-180deg) scale(1.5);
+      transform: rotateY(180deg) scale(1.5);
     }
 
     &:hover.hidden .back {
