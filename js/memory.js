@@ -50,7 +50,7 @@ function checkWinState() {
 
     $cards.removeClass('shown done').addClass('hidden');
 
-
+    updateHud("You won!");
     $field.addClass("win");
 
     setTimeout(()=> $field.removeClass('win'), 2500);
