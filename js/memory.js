@@ -158,9 +158,24 @@ function reset() {
   
 }
 
+
+
 // Update the hud with game status
 function updateHud(message = "") {
   $hud.html(`Matches: <b>${matches}/${toWin}</b> <span>${message}</span>`);
 }
 
-reset();
+$(document).ready(() => {
+  
+  // Start game
+  reset();
+
+  // // Viewport scaling
+  // $(window).resize(() => {
+  //   var ratio = window.outerHeight / window.outerWidth;
+  //   if (ratio  < 1) {
+  //     $field.css('transform', `scale(${ratio})`);
+  //   }
+  // });
+
+});
